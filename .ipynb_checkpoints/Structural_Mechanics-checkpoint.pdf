@@ -41,7 +41,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 48,
+   "execution_count": 3712,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -50,7 +50,6 @@
     "from sympy import Eq, dsolve, Derivative, latex\n",
     "import numpy as np\n",
     "import math\n",
-    "import matplotlib.pyplot as plt\n",
     "# Вывод значений параметров в Jupyter Notebook в LaTeX стиле\n",
     "from IPython.display import display, Math\n",
     "\n",
@@ -65,10 +64,7 @@
     "nu12, nu21, E1, E2, G12 = smp.symbols('nu12 nu21 E1 E2 G12')\n",
     "L, q, M, E_x, I_x, G_x, F_x = smp.symbols('L q M E I G F')\n",
     "w = smp.symbols('w', cls=smp.Function)\n",
-    "theta = smp.symbols('theta', cls=smp.Function)\n",
-    "q9 = 1200\n",
-    "M9 = 450\n",
-    "L9 = 1.2\n"
+    "theta = smp.symbols('theta', cls=smp.Function)\n"
    ]
   },
   {
@@ -80,7 +76,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 49,
+   "execution_count": 3713,
    "metadata": {},
    "outputs": [
     {
@@ -149,7 +145,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 50,
+   "execution_count": 3714,
    "metadata": {},
    "outputs": [
     {
@@ -317,7 +313,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 51,
+   "execution_count": 3715,
    "metadata": {},
    "outputs": [
     {
@@ -329,7 +325,7 @@
        "Eq(w(x), C1 + C2*x + C3*x**2 + C4*x**3 - q*x**4/(24*E*I))"
       ]
      },
-     "execution_count": 51,
+     "execution_count": 3715,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -357,7 +353,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 52,
+   "execution_count": 3716,
    "metadata": {},
    "outputs": [
     {
@@ -369,7 +365,7 @@
        "Eq(w(x), L*q*x**3/(6*E*I) - q*x**4/(24*E*I) + x**2*(-L**2*q + 2*M)/(4*E*I))"
       ]
      },
-     "execution_count": 52,
+     "execution_count": 3716,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -399,7 +395,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 53,
+   "execution_count": 3717,
    "metadata": {},
    "outputs": [
     {
@@ -435,7 +431,7 @@
        "Eq(w(x), -0.00509095177771675*x**4 + 0.0244365685330404*x**3 - 0.0210765403597474*x**2)"
       ]
      },
-     "execution_count": 53,
+     "execution_count": 3717,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -465,7 +461,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 54,
+   "execution_count": 3718,
    "metadata": {},
    "outputs": [
     {
@@ -504,7 +500,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 55,
+   "execution_count": 3719,
    "metadata": {},
    "outputs": [
     {
@@ -525,13 +521,13 @@
    "source": [
     "# Поиск максимального значения функции\n",
     "w_func = solutions_subs.rhs \n",
-    "first_derivative = smp.diff(w_func, x)\n",
+    "first_derivative = diff(w_func, x)\n",
     "diff_eq_fd = Eq(first_derivative, 0)\n",
-    "solution_fd = smp.solve(Eq(first_derivative, 0), x)\n",
+    "solution_fd = solve(Eq(first_derivative, 0), x)\n",
     "\n",
     "# Фильтрация решений\n",
     "filtered_solutions = [solution for solution in solution_fd if 0 <= solution <= 1.2]\n",
-    "numeric_w_func = smp.lambdify(x, w_func, \"numpy\")\n",
+    "numeric_w_func = lambdify(x, w_func, \"numpy\")\n",
     "max_solution = min(filtered_solutions, key=numeric_w_func)\n",
     "max_value = numeric_w_func(max_solution)\n",
     "\n",
@@ -552,7 +548,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 56,
+   "execution_count": 3720,
    "metadata": {},
    "outputs": [
     {
@@ -593,7 +589,7 @@
        "-0.061091421332601*x**2 + 0.146619411198242*x - 0.0421530807194947"
       ]
      },
-     "execution_count": 56,
+     "execution_count": 3720,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -604,9 +600,9 @@
     "w_func2 = solutions_subs.rhs\n",
     "\n",
     "\n",
-    "second_derivative = smp.diff(w_func2, x, 2)\n",
+    "second_derivative = diff(w_func2, x, 2)\n",
     "\n",
-    "numeric_functionsf = smp.lambdify(x, second_derivative, \"numpy\")\n",
+    "numeric_functionsf = lambdify(x, second_derivative, \"numpy\")\n",
     "\n",
     "x_vals = np.linspace(0, 1.2, 400)\n",
     "\n",
@@ -619,7 +615,7 @@
     "plt.grid(True)\n",
     "plt.show()\n",
     "\n",
-    "critical_points = smp.solve(second_derivative, x)\n",
+    "critical_points = solve(second_derivative, x)\n",
     "\n",
     "\n",
     "derivative_values = [second_derivative.subs(x, point) for point in critical_points]\n",
@@ -635,7 +631,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 57,
+   "execution_count": 3721,
    "metadata": {},
    "outputs": [
     {
@@ -673,7 +669,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 58,
+   "execution_count": 3722,
    "metadata": {},
    "outputs": [
     {
@@ -784,7 +780,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 59,
+   "execution_count": 3723,
    "metadata": {},
    "outputs": [
     {
@@ -831,7 +827,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 60,
+   "execution_count": 3724,
    "metadata": {},
    "outputs": [
     {
@@ -843,7 +839,7 @@
        "Eq(w(x), x**2*(q/(2*F*G) - L**2*q/(4*E*I) + M/(2*E*I)) - L*q*x/(F*G) + L*q*x**3/(6*E*I) - q*x**4/(24*E*I))"
       ]
      },
-     "execution_count": 60,
+     "execution_count": 3724,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -871,7 +867,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 61,
+   "execution_count": 3725,
    "metadata": {},
    "outputs": [
     {
@@ -883,7 +879,7 @@
        "Eq(w(x), -0.00509095177771675*x**4 + 0.0244365685330404*x**3 - 0.0209263504446811*x**2 - 0.000360455796159024*x)"
       ]
      },
-     "execution_count": 61,
+     "execution_count": 3725,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -903,7 +899,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 62,
+   "execution_count": 3726,
    "metadata": {},
    "outputs": [
     {
@@ -916,15 +912,15 @@
    ],
    "source": [
     "w_funct = solutions_subs_t.rhs \n",
-    "first_derivativet = smp.diff(w_func, x)\n",
+    "first_derivativet = diff(w_func, x)\n",
     "diff_eq_fdt = Eq(first_derivative, 0)\n",
-    "solution_fd = smp.solve(Eq(first_derivative, 0), x)\n",
+    "solution_fd = solve(Eq(first_derivative, 0), x)\n",
     "\n",
     "\n",
     "filtered_solutions = [solution for solution in solution_fd if 0 <= solution <= 1.2]\n",
     "\n",
     "\n",
-    "numeric_w_func = smp.lambdify(x, w_funct, \"numpy\")\n",
+    "numeric_w_func = lambdify(x, w_funct, \"numpy\")\n",
     "\n",
     "\n",
     "max_solution = min(filtered_solutions, key=numeric_w_func)\n",
@@ -947,7 +943,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 63,
+   "execution_count": 3727,
    "metadata": {},
    "outputs": [
     {
@@ -985,7 +981,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 64,
+   "execution_count": 3728,
    "metadata": {},
    "outputs": [
     {
@@ -1030,7 +1026,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.11.8"
+   "version": "3.11.7"
   }
  },
  "nbformat": 4,
